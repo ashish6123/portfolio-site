@@ -10,20 +10,23 @@ const newsreader = Newsreader({
   variable: "--font-newsreader",
   subsets: ["latin"],
   style: ["normal", "italic"],
-  display: "swap",
+  display: "block",
 });
 
 const instrument = Instrument_Sans({
   variable: "--font-instrument",
   subsets: ["latin"],
-  display: "swap",
+  display: "block",
 });
 
 const jetbrains = JetBrains_Mono({
   variable: "--font-jetbrains",
   subsets: ["latin"],
   weight: ["400", "500"],
-  display: "swap",
+  display: "block",
+  // A real monospace fallback keeps label widths, so nothing rewraps when the font lands.
+  adjustFontFallback: false,
+  fallback: ["ui-monospace", "Menlo", "Consolas", "monospace"],
 });
 
 const description = `${site.positioning} Final-year at IIT Patna, based in ${site.location}.`;

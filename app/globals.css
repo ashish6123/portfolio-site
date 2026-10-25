@@ -207,6 +207,11 @@ body {
   transform: rotateY(-180deg);
 }
 
+/* Leaves buried under the open spread are never seen, so skip painting them. */
+.leaf[data-offstage] {
+  visibility: hidden;
+}
+
 .face {
   position: absolute;
   inset: 0;

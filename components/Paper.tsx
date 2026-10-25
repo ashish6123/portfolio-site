@@ -41,7 +41,7 @@ export function Opener({
     <div className="page items-center justify-center text-center">
       <div className="my-auto flex max-w-[22em] flex-col items-center gap-6">
         <p className="eyebrow">Chapter {NUMERALS[chapter] ?? chapter}</p>
-        <p className="text-accent font-serif text-[clamp(56px,7vw,92px)] leading-none font-light">
+        <p className="text-accent font-serif text-[clamp(56px,7vw,92px)] leading-none font-normal">
           {NUMERALS[chapter] ?? chapter}
         </p>
         <p className="font-serif text-3xl font-medium">{title}</p>
