@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ashish Ranjan, portfolio
 
-## Getting Started
+A personal portfolio built as a book you page through. Next.js (App Router), TypeScript and Tailwind CSS, statically generated, deployed on Vercel.
 
-First, run the development server:
+## Run
+
+Requires Node.js 20 or newer.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. Turn pages with the arrow keys, the buttons under the book, the chapter tabs, or a swipe on touch screens.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Check and build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run check
+npm run build
+npm run start
+```
 
-## Learn More
+`check` runs the TypeScript compiler, ESLint and Prettier. `build` must finish with zero errors before a deploy.
 
-To learn more about Next.js, take a look at the following resources:
+## Edit content
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+All copy lives in typed files, so no page code needs to change for content updates:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `data/site.ts`: name, positioning, links, about text, education
+- `data/experience.ts`: roles
+- `data/projects.ts`: project cards and the per-project pages at `/projects/[slug]`
+- `public/resume.pdf`: the downloadable resume (keep the phone number out of it)
 
-## Deploy on Vercel
+## Deploy to Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Push this folder to a GitHub repository.
+2. In Vercel, choose **Add New Project**, import the repository and keep the detected Next.js settings.
+3. Add the environment variable `NEXT_PUBLIC_SITE_URL` with the final address, for example `https://ashishranjan.vercel.app`. It is used for canonical URLs, the sitemap, Open Graph tags and JSON-LD.
+4. Deploy. Every push to `main` deploys to production, and every pull request gets a preview URL.
+5. In the project's **Analytics** tab, enable Web Analytics. It sets no cookies, so no consent banner is needed.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+From the command line instead: `npx vercel` for a preview, `npx vercel --prod` for production.
