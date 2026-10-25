@@ -138,6 +138,7 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
                 className="leaf"
                 data-turned={turned || undefined}
                 data-turning={turning === k || undefined}
+                data-offstage={(k < current - 1 || k > current) && turning !== k ? true : undefined}
                 style={{ zIndex: z }}
                 inert={!visible}
               >
@@ -164,7 +165,6 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
           className="turn"
           onClick={() => goTo(current - 1)}
           disabled={current === 0}
-          aria-label="Previous page"
         >
           <span aria-hidden="true">←</span> Back
         </button>
@@ -178,9 +178,8 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
           className="turn"
           onClick={() => goTo(current + 1)}
           disabled={current === count - 1}
-          aria-label="Next page"
         >
-          Turn <span aria-hidden="true">→</span>
+          Turn page <span aria-hidden="true">→</span>
         </button>
       </div>
     </div>

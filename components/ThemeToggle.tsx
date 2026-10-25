@@ -28,9 +28,10 @@ export function ThemeToggle() {
         }
       }}
       className="border-rule text-ink hover:border-accent rounded-full border px-3 py-1.5 font-mono text-xs transition-colors"
-      aria-label={`Switch to ${next} mode`}
+      title={`Switch to ${next} mode`}
     >
       {theme === "dark" ? "Morning light" : "Evening lamp"}
+      <span className="sr-only">, switch to {next} mode</span>
     </button>
   );
 }
