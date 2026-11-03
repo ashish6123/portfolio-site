@@ -251,15 +251,59 @@ const pages: BookPage[] = [
   },
 ];
 
-export default function Home() {
+const numerals = ["I", "II", "III", "IV", "V"];
+
+// The left-hand page of the opening spread: a table of contents and the short version.
+function Contents() {
+  const glance = [
+    { term: "Now", value: `${experience[0].role}, ${experience[0].company}` },
+    { term: "Study", value: `${education[0].school}, ${education[0].detail.split(". ")[0]}` },
+    {
+      term: "Selected work",
+      value: projects
+        .slice(0, 3)
+        .map((p) => p.title)
+        .join(", "),
+    },
+  ];
   return (
-    <Book
-      pages={pages}
-      endpaper={
-        <div className="text-muted flex h-full items-end justify-center p-8 font-mono text-[11px] tracking-[0.12em] uppercase">
+    <div className="flex h-full flex-col px-[clamp(24px,4vw,52px)] py-[clamp(20px,3.5svh,56px)]">
+      <nav aria-label="Contents">
+        <p className="eyebrow">Contents</p>
+        <ol className="mt-[clamp(8px,2svh,24px)] flex flex-col gap-1">
+          {pages.slice(1).map((p, i) => (
+            <li key={p.id}>
+              <a href={`#${p.id}`} className="contents-row group">
+                <span className="text-muted w-8 font-mono text-xs">{numerals[i]}</span>
+                <span className="group-hover:text-accent font-serif text-[clamp(20px,2vw,26px)] transition-colors">
+                  {p.label}
+                </span>
+                <span aria-hidden="true" className="contents-leader" />
+                <span className="text-muted font-mono text-xs">{i + 2}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <div className="mt-auto">
+        <dl className="contents-glance border-rule grid gap-3 border-t pt-5 text-[15px]">
+          {glance.map((g) => (
+            <div key={g.term}>
+              <dt className="text-muted font-mono text-[11px] tracking-[0.1em] uppercase">
+                {g.term}
+              </dt>
+              <dd className="text-ink mt-0.5">{g.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p className="text-muted pt-4 text-center font-mono text-[11px] tracking-[0.12em] uppercase">
           Ex libris · {site.name}
-        </div>
-      }
-    />
+        </p>
+      </div>
+    </div>
   );
+}
+
+export default function Home() {
+  return <Book pages={pages} endpaper={<Contents />} />;
 }

@@ -196,6 +196,28 @@ body {
   box-shadow: 0 24px 50px -20px var(--shadow);
 }
 
+.contents-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding-block: clamp(4px, 1.2svh, 14px);
+  color: var(--ink);
+}
+
+/* Short screens keep the table of contents and drop the summary. */
+@media (max-height: 720px) {
+  .contents-glance {
+    display: none;
+  }
+}
+
+.contents-leader {
+  flex: 1;
+  border-bottom: 1.5px dotted var(--muted);
+  opacity: 0.45;
+  transform: translateY(-4px);
+}
+
 .leaf {
   left: 50%;
   transform-origin: left center;

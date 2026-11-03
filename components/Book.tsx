@@ -135,7 +135,8 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
         onPointerCancel={() => (touchStart.current = null)}
       >
         <div className="book">
-          <div className="endpaper" aria-hidden="true">
+          {/* Only reachable while the cover is open; turned leaves hide it after that. */}
+          <div className="endpaper" inert={current !== 0}>
             {endpaper}
           </div>
           {pages.map((p, k) => {
