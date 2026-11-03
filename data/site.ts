@@ -7,7 +7,10 @@ export const site = {
   github: "https://github.com/ashish6123",
   linkedin: "https://www.linkedin.com/in/ashish-ranjan6",
   resume: "/resume.pdf",
-  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ashishranjan.vercel.app").replace(/\/$/, ""),
+  url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ashish-ranjan-flame.vercel.app").replace(
+    /\/$/,
+    "",
+  ),
   about: [
     "Final-year BS student in Computer Science and Data Analytics at IIT Patna (CPI 8.88, graduating July 2027).",
     "I build AI products and integrations, from workflow design through implementation, validation and handoff. My work includes LLM infrastructure, agentic systems, and full-stack products.",
