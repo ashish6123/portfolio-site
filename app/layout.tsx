@@ -103,7 +103,17 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Link href="/" className="text-ink font-serif text-lg font-medium tracking-tight">
               {site.name}
             </Link>
-            <ThemeToggle />
+            <div className="flex items-center gap-2">
+              <a
+                href={site.resume}
+                download={site.resumeFilename}
+                className="bg-accent text-accent-ink rounded-full px-3 py-1.5 font-mono text-xs transition-opacity hover:opacity-90"
+              >
+                Resume <span aria-hidden="true">↓</span>
+                <span className="sr-only"> (PDF)</span>
+              </a>
+              <ThemeToggle />
+            </div>
           </header>
           <main id="main" className="min-w-0">
             {children}

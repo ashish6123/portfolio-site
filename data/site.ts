@@ -7,6 +7,7 @@ export const site = {
   github: "https://github.com/ashish6123",
   linkedin: "https://www.linkedin.com/in/ashish-ranjan6",
   resume: "/resume.pdf",
+  resumeFilename: "Ashish-Ranjan-Resume.pdf",
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ashishranjan-ai.vercel.app").replace(
     /\/$/,
     "",

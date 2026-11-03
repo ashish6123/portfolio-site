@@ -56,7 +56,11 @@ function Cover() {
           </a>
         </li>
         <li>
-          <a href={site.resume} download className="underline-offset-4 hover:underline">
+          <a
+            href={site.resume}
+            download={site.resumeFilename}
+            className="underline-offset-4 hover:underline"
+          >
             Resume (PDF)
           </a>
         </li>
@@ -231,7 +235,7 @@ const pages: BookPage[] = [
             </ExternalLink>
           </li>
           <li>
-            <a href={site.resume} download className="ink-link">
+            <a href={site.resume} download={site.resumeFilename} className="ink-link">
               Download resume (PDF)
             </a>
           </li>
