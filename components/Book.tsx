@@ -11,6 +11,7 @@ export type BookPage = {
 };
 
 const TURN_MS = 900;
+const TEXTUAL = "a, button, img, svg, p, h1, h2, h3, h4, li, dt, dd, span, code, pre, blockquote";
 
 // A stack of leaves. Leaf k carries page k on its front and the opener of page
 // k + 1 on its back, so a turned leaf lands on the left as the next chapter's
@@ -20,7 +21,8 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
   const [turning, setTurning] = useState<number | null>(null);
   const currentRef = useRef(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const count = pages.length;
 
@@ -76,6 +78,37 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
 
   useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
 
+  // A sideways two-finger swipe on a trackpad (or Shift + wheel) turns the page.
+  useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+    let sum = 0;
+    let locked = false;
+    let idle: ReturnType<typeof setTimeout> | undefined;
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+      // Also stops the browser treating the swipe as back or forward navigation.
+      e.preventDefault();
+      // One gesture turns one page: wait for its momentum to die down before the next.
+      clearTimeout(idle);
+      idle = setTimeout(() => {
+        sum = 0;
+        locked = false;
+      }, 200);
+      if (locked) return;
+      sum += e.deltaX;
+      if (Math.abs(sum) > 60) {
+        locked = true;
+        goTo(currentRef.current + (sum > 0 ? 1 : -1));
+      }
+    };
+    stage.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      stage.removeEventListener("wheel", onWheel);
+      clearTimeout(idle);
+    };
+  }, [goTo]);
+
   // On phones the tab row scrolls sideways; keep the current chapter's tab in view.
   useEffect(() => {
     const nav = navRef.current;
@@ -96,12 +129,20 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
     }
   };
 
+  // Swipe with a finger anywhere. With a mouse, drag from blank paper: pressing on text,
+  // links, buttons or images keeps their usual behaviour, such as selecting text.
   const onPointerDown = (e: React.PointerEvent) => {
-    if (e.pointerType === "touch") touchStart.current = { x: e.clientX, y: e.clientY };
+    if (e.pointerType === "mouse" && (e.button !== 0 || (e.target as Element).closest(TEXTUAL)))
+      return;
+    swipeStart.current = { x: e.clientX, y: e.clientY };
+  };
+  // Stops a drag from blank paper selecting the text it passes over.
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (swipeStart.current) e.preventDefault();
   };
   const onPointerUp = (e: React.PointerEvent) => {
-    const start = touchStart.current;
-    touchStart.current = null;
+    const start = swipeStart.current;
+    swipeStart.current = null;
     if (!start) return;
     const dx = e.clientX - start.x;
     const dy = e.clientY - start.y;
@@ -128,11 +169,13 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
       </nav>
 
       <div
+        ref={stageRef}
         className="stage"
         onClick={onClick}
         onPointerDown={onPointerDown}
+        onMouseDown={onMouseDown}
         onPointerUp={onPointerUp}
-        onPointerCancel={() => (touchStart.current = null)}
+        onPointerCancel={() => (swipeStart.current = null)}
       >
         <div className="book">
           {/* Only reachable while the cover is open; turned leaves hide it after that. */}
