@@ -36,7 +36,7 @@ All copy lives in typed files, so no page code needs to change for content updat
 
 1. Push this folder to a GitHub repository.
 2. In Vercel, choose **Add New Project**, import the repository and keep the detected Next.js settings.
-3. Add the environment variable `NEXT_PUBLIC_SITE_URL` with the final address, for example `https://ashish-ranjan-flame.vercel.app`. It is used for canonical URLs, the sitemap, Open Graph tags and JSON-LD.
+3. Add the environment variable `NEXT_PUBLIC_SITE_URL` with the final address, for example `https://ashishranjan-ai.vercel.app`. It is used for canonical URLs, the sitemap, Open Graph tags and JSON-LD.
 4. Deploy. Every push to `main` deploys to production, and every pull request gets a preview URL.
 5. In the project's **Analytics** tab, enable Web Analytics. It sets no cookies, so no consent banner is needed.
 
