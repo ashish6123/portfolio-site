@@ -33,21 +33,21 @@ const description = `${site.positioning} Final-year at IIT Patna, based in ${sit
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: `${site.name}, Forward Deployed Engineer`, template: `%s | ${site.name}` },
+  title: { default: `${site.name}, ${site.title}`, template: `%s | ${site.name}` },
   description,
   authors: [{ name: site.name, url: site.url }],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: `${site.name}, Forward Deployed Engineer`,
+    title: `${site.name}, ${site.title}`,
     description,
     url: "/",
     locale: "en_IN",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name}, Forward Deployed Engineer`,
+    title: `${site.name}, ${site.title}`,
     description,
   },
 };
@@ -68,7 +68,7 @@ const personJsonLd = {
   name: site.name,
   url: site.url,
   email: `mailto:${site.email}`,
-  jobTitle: "Forward Deployed Engineer",
+  jobTitle: site.title,
   description: site.positioning,
   alumniOf: { "@type": "CollegeOrUniversity", name: "Indian Institute of Technology Patna" },
   address: { "@type": "PostalAddress", addressCountry: "IN" },

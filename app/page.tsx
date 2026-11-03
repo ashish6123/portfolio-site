@@ -208,8 +208,8 @@ const pages: BookPage[] = [
         <p className="eyebrow">Chapter V</p>
         <h2 className="font-serif text-4xl font-medium">Contact</h2>
         <p>
-          Hiring for a Forward Deployed Engineer, AI infrastructure or software engineering role?
-          Email is the fastest way to reach me.
+          Looking for remote AI product or integration work, or hiring for a Forward Deployed
+          Engineer or AI engineering role? Email is the fastest way to reach me.
         </p>
         <p>
           <a

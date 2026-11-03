@@ -1,6 +1,7 @@
 export const site = {
   name: "Ashish Ranjan",
-  positioning: "Forward Deployed Engineer building LLM infrastructure and agentic systems.",
+  title: "AI Engineer",
+  positioning: "AI engineer building guarded agents, LLM products and payment workflows.",
   location: "India, open to remote",
   email: "ashishranjaniitp@gmail.com",
   github: "https://github.com/ashish6123",
@@ -9,8 +10,8 @@ export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? "https://ashishranjan.vercel.app").replace(/\/$/, ""),
   about: [
     "Final-year BS student in Computer Science and Data Analytics at IIT Patna (CPI 8.88, graduating July 2027).",
-    "I work on AI and LLM infrastructure, agentic systems, and full-stack products, and I care about shipping things that are deployed and used. I prefer high-autonomy teams with direct access to the people building the product.",
-    "Available to start a new role from January 2027.",
+    "I build AI products and integrations, from workflow design through implementation, validation and handoff. My work includes LLM infrastructure, agentic systems, and full-stack products.",
+    "Available now for remote contract projects for 20 to 30 hours per week. Available for full-time roles from January 2027.",
   ],
 } as const;
 
