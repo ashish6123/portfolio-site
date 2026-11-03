@@ -99,7 +99,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <div className="shell">
-          <header className="flex items-center justify-between gap-4 py-4">
+          <header className="flex items-center justify-between gap-4 py-3 min-[861px]:py-4">
             <Link href="/" className="text-ink font-serif text-lg font-medium tracking-tight">
               {site.name}
             </Link>
@@ -108,7 +108,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <main id="main" className="min-w-0">
             {children}
           </main>
-          <footer className="text-muted flex flex-wrap items-center justify-center gap-x-5 gap-y-1 py-5 font-mono text-xs">
+          <footer className="text-muted flex flex-wrap items-center justify-center gap-x-5 gap-y-1 py-5 font-mono text-xs max-[860px]:hidden">
             <span>© 2026 {site.name}</span>
             <a
               className="hover:text-ink"

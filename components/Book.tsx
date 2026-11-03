@@ -21,6 +21,7 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
   const currentRef = useRef(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const navRef = useRef<HTMLElement>(null);
   const count = pages.length;
 
   const goTo = useCallback(
@@ -75,6 +76,15 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
 
   useEffect(() => () => void (timer.current && clearTimeout(timer.current)), []);
 
+  // On phones the tab row scrolls sideways; keep the current chapter's tab in view.
+  useEffect(() => {
+    const nav = navRef.current;
+    const tab = nav?.querySelector<HTMLElement>('[aria-current="page"]');
+    if (!nav || !tab || nav.scrollWidth <= nav.clientWidth) return;
+    const offset = tab.getBoundingClientRect().left - nav.getBoundingClientRect().left;
+    nav.scrollTo({ left: nav.scrollLeft + offset - (nav.clientWidth - tab.offsetWidth) / 2 });
+  }, [current]);
+
   const onClick = (e: React.MouseEvent) => {
     const a = (e.target as HTMLElement).closest("a");
     const href = a?.getAttribute("href");
@@ -100,7 +110,7 @@ export function Book({ pages, endpaper }: { pages: BookPage[]; endpaper?: ReactN
 
   return (
     <div className="reader">
-      <nav className="chapters" aria-label="Chapters">
+      <nav ref={navRef} className="chapters" aria-label="Chapters">
         <ol>
           {pages.map((p, i) => (
             <li key={p.id}>

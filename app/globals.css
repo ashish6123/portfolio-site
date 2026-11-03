@@ -405,9 +405,16 @@ body {
 /* ---------- Phones and tablets: one page at a time ---------- */
 
 @media (max-width: 860px) {
+  /* The footer, running head and folio are hidden here, so the page gets the room. */
   .reader {
-    --page-h: max(440px, calc(100svh - 240px));
+    --page-h: max(440px, calc(100svh - 172px));
     --page-w: min(calc(100vw - 32px), 620px);
+    gap: 10px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
+  }
+
+  .stage {
+    padding-block: 4px 10px;
   }
 
   .book {
@@ -437,17 +444,34 @@ body {
 
   .page {
     font-size: 16px;
+    padding: 22px 20px 20px;
   }
 
+  /* The chapter tab and the page heading already name the section. */
+  .running-head,
+  .folio {
+    display: none;
+  }
+
+  /* Tabs scroll sideways; fade the edges so a cut-off tab reads as more to scroll. */
   .chapters {
     width: 100%;
     overflow-x: auto;
     scrollbar-width: none;
+    scroll-behavior: smooth;
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--ink) 12px,
+      var(--ink) calc(100% - 28px),
+      transparent
+    );
   }
 
   .chapters ol {
     flex-wrap: nowrap;
     justify-content: flex-start;
+    padding-inline: 8px 28px;
   }
 
   .chapter-tab {
@@ -464,5 +488,9 @@ body {
 
   .leaf[data-turning] .face::after {
     animation: none;
+  }
+
+  .chapters {
+    scroll-behavior: auto;
   }
 }
