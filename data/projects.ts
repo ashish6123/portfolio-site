@@ -106,7 +106,7 @@ export const projects: Project[] = [
       { name: "Groq", detail: "Writes the voiceover script for the listing." },
       { name: "ElevenLabs", detail: "Records the narration." },
       { name: "FFmpeg", detail: "Animates photos, syncs audio, burns in captions." },
-      { name: "Supabase and Razorpay", detail: "Data, storage, and paid subscriptions." },
+      { name: "Supabase and Razorpay", detail: "Data, storage, and paid plans." },
     ],
     stack: [
       "Next.js",
