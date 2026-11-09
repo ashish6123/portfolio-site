@@ -27,11 +27,14 @@ export function ThemeToggle() {
           // Storage can be blocked; the choice still applies for this visit.
         }
       }}
-      className="border-rule text-ink hover:border-accent rounded-full border px-3 py-1.5 font-mono text-xs transition-colors"
+      className="btn btn-icon"
       title={`Switch to ${next} mode`}
     >
-      {theme === "dark" ? "Morning light" : "Evening lamp"}
-      <span className="sr-only">, switch to {next} mode</span>
+      <svg aria-hidden="true" viewBox="0 0 20 20" width="16" height="16" fill="none">
+        <circle cx="10" cy="10" r="7.25" stroke="currentColor" strokeWidth="1.5" />
+        <path d="M10 2.75a7.25 7.25 0 0 1 0 14.5z" fill="currentColor" />
+      </svg>
+      <span className="sr-only">Switch to {next} mode</span>
     </button>
   );
 }

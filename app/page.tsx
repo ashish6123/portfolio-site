@@ -1,309 +1,299 @@
 import Link from "next/link";
-import { Book, type BookPage } from "@/components/Book";
-import { Opener, Paper } from "@/components/Paper";
+import { CopyEmail } from "@/components/CopyEmail";
 import { ExternalLink } from "@/components/ExternalLink";
-import { education, site } from "@/data/site";
 import { experience } from "@/data/experience";
-import { projects } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
+import { education, highlights, openSource, site, skills } from "@/data/site";
 
-function Cover() {
+function SectionHead({ eyebrow, title }: { eyebrow: string; title: string }) {
   return (
-    <div className="flex min-h-full flex-col px-[clamp(24px,5vw,52px)] py-[clamp(28px,5vw,56px)]">
-      <span
-        aria-hidden="true"
-        className="bg-accent absolute top-0 right-10 h-24 w-5 [clip-path:polygon(0_0,100%_0,100%_100%,50%_82%,0_100%)]"
-      />
-      <p className="font-mono text-xs tracking-[0.14em] uppercase opacity-80">
-        A portfolio in five chapters
-      </p>
-      <div className="my-auto flex flex-col gap-6 py-10">
-        <h1 className="font-serif text-[clamp(44px,6.4vw,76px)] leading-[0.95] font-medium tracking-tight">
-          {site.name}
-        </h1>
-        <span className="bg-cloth-ink h-px w-20 opacity-50" />
-        <p className="max-w-[24em] font-serif text-[clamp(19px,2vw,23px)] leading-snug italic">
-          {site.positioning}
-        </p>
-        <div className="flex flex-wrap gap-3 pt-2">
-          <a
-            href="#projects"
-            className="bg-cloth-ink text-cloth rounded-full px-5 py-2.5 font-sans text-sm font-semibold transition-opacity hover:opacity-90"
-          >
-            View work
-          </a>
-          <a
-            href="#contact"
-            className="border-cloth-ink hover:bg-cloth-ink/10 rounded-full border px-5 py-2.5 font-sans text-sm font-semibold transition-colors"
-          >
-            Contact
-          </a>
-        </div>
-      </div>
-      <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-[13px]">
-        <li>
-          <ExternalLink href={site.github} className="underline-offset-4 hover:underline">
-            GitHub
-          </ExternalLink>
-        </li>
-        <li>
-          <ExternalLink href={site.linkedin} className="underline-offset-4 hover:underline">
-            LinkedIn
-          </ExternalLink>
-        </li>
-        <li>
-          <a href={`mailto:${site.email}`} className="underline-offset-4 hover:underline">
-            Email
-          </a>
-        </li>
-        <li>
-          <a
-            href={site.resume}
-            download={site.resumeFilename}
-            className="underline-offset-4 hover:underline"
-          >
-            Resume (PDF)
-          </a>
-        </li>
-      </ul>
-      <p className="mt-4 font-mono text-[11px] tracking-[0.1em] uppercase opacity-70">
-        {site.location}
-      </p>
+    <div className="mb-10 flex flex-col gap-3 md:mb-14">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 className="display text-4xl md:text-6xl">{title}</h2>
     </div>
   );
 }
 
-const head = (section: string): [string, string] => [site.name, section];
-
-const pages: BookPage[] = [
-  { id: "cover", label: "Cover", recto: <Cover /> },
-  {
-    id: "about",
-    label: "About",
-    verso: (
-      <Opener
-        chapter={1}
-        title="About"
-        argument="In which I say who I am, and what kind of team I want to join."
-      />
-    ),
-    recto: (
-      <Paper head={head("About")} folio={1}>
-        <p className="eyebrow">Chapter I</p>
-        <h2 className="font-serif text-4xl font-medium">About</h2>
-        <p className="drop-cap">{site.about[0]}</p>
-        <p>{site.about[1]}</p>
-        <p className="border-accent border-l-2 pl-4 italic">{site.about[2]}</p>
-      </Paper>
-    ),
-  },
-  {
-    id: "experience",
-    label: "Experience",
-    verso: (
-      <Opener
-        chapter={2}
-        title="Experience"
-        argument="In which I work on an LLM gateway and a desktop app, on a team of two."
-      />
-    ),
-    recto: (
-      <Paper head={head("Experience")} folio={2}>
-        <p className="eyebrow">Chapter II</p>
-        <h2 className="font-serif text-4xl font-medium">Experience</h2>
-        {experience.map((job) => (
-          <article key={job.company} className="flex flex-col gap-3">
-            <div className="flex flex-col gap-0.5">
-              <h3 className="font-serif text-2xl font-medium">{job.role}</h3>
-              <p className="text-muted font-mono text-[13px]">
-                {job.company} · {job.place} · {job.period}
-              </p>
-            </div>
-            <ul className="flex flex-col gap-3">
-              {job.points.map((point) => (
-                <li key={point} className="relative pl-6">
-                  <span aria-hidden="true" className="text-accent absolute top-0 left-0">
-                    ¶
-                  </span>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </Paper>
-    ),
-  },
-  {
-    id: "projects",
-    label: "Projects",
-    verso: (
-      <Opener
-        chapter={3}
-        title="Projects"
-        argument="In which five things get built, and each has a chapter of its own."
-      />
-    ),
-    recto: (
-      <Paper head={head("Projects")} folio={3}>
-        <p className="eyebrow">Chapter III</p>
-        <h2 className="font-serif text-4xl font-medium">Projects</h2>
-        <ol className="flex flex-col">
-          {projects.map((p, i) => (
-            <li key={p.slug} className="border-rule border-t first:border-t-0">
-              <Link
-                href={`/projects/${p.slug}`}
-                className="group grid grid-cols-[2.2em_1fr] gap-x-3 py-3.5"
-              >
-                <span className="text-muted pt-1 font-mono text-xs">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="flex min-w-0 flex-col gap-1">
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                    <h3 className="decoration-accent font-serif text-xl font-medium decoration-[1.5px] underline-offset-4 group-hover:underline">
-                      {p.title}
-                    </h3>
-                    {p.status ? <span className="badge">{p.status}</span> : null}
-                  </div>
-                  <span className="text-muted font-mono text-xs">{p.kind}</span>
-                  <span className="text-[15px] leading-snug">{p.summary}</span>
-                  <span className="text-accent font-mono text-xs">
-                    Read the chapter <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ol>
-      </Paper>
-    ),
-  },
-  {
-    id: "education",
-    label: "Education",
-    verso: (
-      <Opener
-        chapter={4}
-        title="Education"
-        argument="In which I study computer science and data analytics at IIT Patna."
-      />
-    ),
-    recto: (
-      <Paper head={head("Education")} folio={4}>
-        <p className="eyebrow">Chapter IV</p>
-        <h2 className="font-serif text-4xl font-medium">Education</h2>
-        {education.map((e) => (
-          <article key={e.degree} className="border-rule flex flex-col gap-1 border-t pt-4">
-            <h3 className="font-serif text-xl font-medium">{e.degree}</h3>
-            <p className="text-muted">{e.school}</p>
-            <p className="font-mono text-[13px]">{e.detail}</p>
-          </article>
-        ))}
-      </Paper>
-    ),
-  },
-  {
-    id: "contact",
-    label: "Contact",
-    verso: (
-      <Opener chapter={5} title="Contact" argument="In which you write to me, and I write back." />
-    ),
-    recto: (
-      <Paper head={head("Contact")} folio={5}>
-        <p className="eyebrow">Chapter V</p>
-        <h2 className="font-serif text-4xl font-medium">Contact</h2>
-        <p>
-          Looking for remote AI product or integration work, or hiring for a Forward Deployed
-          Engineer or AI engineering role? Email is the fastest way to reach me.
-        </p>
-        <p>
-          <a
-            href={`mailto:${site.email}`}
-            className="ink-link font-serif text-[clamp(19px,2.2vw,24px)] break-all"
-          >
-            {site.email}
-          </a>
-        </p>
-        <ul className="flex flex-col gap-2 font-mono text-sm">
-          <li>
-            <ExternalLink href={site.github} className="ink-link">
-              github.com/ashish6123
-            </ExternalLink>
-          </li>
-          <li>
-            <ExternalLink href={site.linkedin} className="ink-link">
-              linkedin.com/in/ashish-ranjan6
-            </ExternalLink>
-          </li>
-          <li>
-            <a href={site.resume} download={site.resumeFilename} className="ink-link">
-              Download resume (PDF)
-            </a>
-          </li>
-        </ul>
-        <p className="text-muted">{site.location}.</p>
-        <div className="border-rule text-muted mt-6 border-t pt-4 text-center font-mono text-[11px] leading-relaxed">
-          <p className="tracking-[0.12em] uppercase">Colophon</p>
-          <p>Set in Newsreader, Instrument Sans and JetBrains Mono.</p>
-          <p>Built with Next.js and Tailwind CSS. Turn back with ← or swipe.</p>
-        </div>
-      </Paper>
-    ),
-  },
-];
-
-const numerals = ["I", "II", "III", "IV", "V"];
-
-// The left-hand page of the opening spread: a table of contents and the short version.
-function Contents() {
-  const glance = [
-    { term: "Now", value: `${experience[0].role}, ${experience[0].company}` },
-    { term: "Study", value: `${education[0].school}, ${education[0].detail.split(". ")[0]}` },
-    {
-      term: "Selected work",
-      value: projects
-        .slice(0, 3)
-        .map((p) => p.title)
-        .join(", "),
-    },
-  ];
+function ProjectLinks({ project }: { project: Project }) {
   return (
-    <div className="flex h-full flex-col px-[clamp(24px,4vw,52px)] py-[clamp(20px,3.5svh,56px)]">
-      <nav aria-label="Contents">
-        <p className="eyebrow">Contents</p>
-        <ol className="mt-[clamp(8px,2svh,24px)] flex flex-col gap-1">
-          {pages.slice(1).map((p, i) => (
-            <li key={p.id}>
-              <a href={`#${p.id}`} className="contents-row group">
-                <span className="text-muted w-8 font-mono text-xs">{numerals[i]}</span>
-                <span className="group-hover:text-accent font-serif text-[clamp(20px,2vw,26px)] transition-colors">
-                  {p.label}
-                </span>
-                <span aria-hidden="true" className="contents-leader" />
-                <span className="text-muted font-mono text-xs">{i + 2}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </nav>
-      <div className="mt-auto">
-        <dl className="contents-glance border-rule grid gap-3 border-t pt-5 text-[15px]">
-          {glance.map((g) => (
-            <div key={g.term}>
-              <dt className="text-muted font-mono text-[11px] tracking-[0.1em] uppercase">
-                {g.term}
-              </dt>
-              <dd className="text-ink mt-0.5">{g.value}</dd>
-            </div>
-          ))}
-        </dl>
-        <p className="text-muted pt-4 text-center font-mono text-[11px] tracking-[0.12em] uppercase">
-          Ex libris · {site.name}
-        </p>
-      </div>
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm font-medium">
+      <Link href={`/projects/${project.slug}`} className="text-link">
+        Case study <span aria-hidden="true">→</span>
+      </Link>
+      {project.links.map((l) => (
+        <ExternalLink key={l.href} href={l.href} className="text-link">
+          {l.label} <span aria-hidden="true">↗</span>
+        </ExternalLink>
+      ))}
     </div>
+  );
+}
+
+function ProjectMeta({ project, index }: { project: Project; index: number }) {
+  return (
+    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+      <span className="text-accent-text font-mono text-xs">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+      <span className="eyebrow">{project.kind}</span>
+      {project.status ? <span className="badge">{project.status}</span> : null}
+    </div>
+  );
+}
+
+function Stack({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-wrap gap-1.5" aria-label="Stack">
+      {items.map((s) => (
+        <li key={s} className="chip">
+          {s}
+        </li>
+      ))}
+    </ul>
   );
 }
 
 export default function Home() {
-  return <Book pages={pages} endpaper={<Contents />} />;
+  const [featured, ...rest] = projects;
+
+  return (
+    <>
+      <section className="relative isolate">
+        <div className="dotfield" aria-hidden="true" />
+        <div className="shell flex flex-col gap-8 pt-14 pb-14 md:gap-10 md:pt-24 md:pb-20">
+          <p
+            className="rise border-line bg-surface text-muted inline-flex max-w-full items-center gap-3 self-start rounded-full border px-4 py-2 text-[13px] leading-snug"
+            style={{ "--i": 0 } as React.CSSProperties}
+          >
+            <span className="pulse-dot" aria-hidden="true" />
+            {site.availability}
+          </p>
+          <h1
+            className="display rise max-w-[17ch] text-[clamp(40px,7.4vw,92px)]"
+            style={{ "--i": 1 } as React.CSSProperties}
+          >
+            I build AI agents that can act on real systems, and the <em>guardrails</em> that stop
+            them doing damage.
+          </h1>
+          <p
+            className="rise text-muted max-w-xl text-lg md:text-xl"
+            style={{ "--i": 2 } as React.CSSProperties}
+          >
+            {site.role}
+          </p>
+          <div className="rise flex flex-wrap gap-3" style={{ "--i": 3 } as React.CSSProperties}>
+            <a href={`mailto:${site.email}`} className="btn btn-primary">
+              Email me
+            </a>
+            <a href={site.resume} download={site.resumeFilename} className="btn">
+              Resume <span aria-hidden="true">↓</span>
+            </a>
+            <ExternalLink href={site.github} className="btn">
+              GitHub <span aria-hidden="true">↗</span>
+            </ExternalLink>
+            <ExternalLink href={site.linkedin} className="btn">
+              LinkedIn <span aria-hidden="true">↗</span>
+            </ExternalLink>
+          </div>
+
+          <ul
+            className="rise mt-4 grid grid-cols-2 gap-3 md:mt-8 md:gap-4 lg:grid-cols-4"
+            style={{ "--i": 4 } as React.CSSProperties}
+          >
+            {highlights.map((h) => (
+              <li key={h.value} className="card flex flex-col gap-2 p-5 md:p-6">
+                <span className="font-serif text-4xl leading-none md:text-5xl">{h.value}</span>
+                <span className="text-sm font-medium">{h.label}</span>
+                <span className="text-muted text-[13px] leading-snug">{h.detail}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="work" className="section">
+        <div className="shell">
+          <SectionHead eyebrow="Selected work" title="Things I built and shipped" />
+
+          <article className="card card-hover grid gap-8 p-6 md:p-10 lg:grid-cols-[1.15fr_1fr] lg:gap-12">
+            <div className="flex min-w-0 flex-col gap-5">
+              <ProjectMeta project={featured} index={0} />
+              <h3 className="display text-5xl md:text-7xl">
+                <Link href={`/projects/${featured.slug}`}>{featured.title}</Link>
+              </h3>
+              <p className="text-muted max-w-lg text-lg">{featured.summary}</p>
+              <Stack items={featured.stack} />
+              <div className="mt-auto pt-2">
+                <ProjectLinks project={featured} />
+              </div>
+            </div>
+            <ol className="bg-bg border-line flex min-w-0 flex-col self-start rounded-2xl border p-2 font-mono text-[13px]">
+              <li className="text-muted px-3 py-2 text-xs">pipeline</li>
+              {featured.architecture.map((step, i) => (
+                <li
+                  key={step.name}
+                  className="border-line grid grid-cols-[28px_1fr] gap-x-2 border-t px-3 py-3"
+                >
+                  <span className="text-accent-text" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="flex min-w-0 flex-col gap-0.5">
+                    <span className="font-medium">{step.name}</span>
+                    <span className="text-muted font-sans text-[13px] leading-snug">
+                      {step.detail}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </article>
+
+          <div className="mt-4 grid gap-4 md:mt-5 md:grid-cols-2 md:gap-5">
+            {rest.map((p, i) => (
+              <article key={p.slug} className="card card-hover flex flex-col gap-4 p-6 md:p-8">
+                <ProjectMeta project={p} index={i + 1} />
+                <h3 className="display text-4xl md:text-5xl">
+                  <Link href={`/projects/${p.slug}`}>{p.title}</Link>
+                </h3>
+                <p className="text-muted">{p.summary}</p>
+                {p.context ? <p className="text-muted font-mono text-xs">{p.context}</p> : null}
+                <Stack items={p.stack.slice(0, 5)} />
+                <div className="mt-auto pt-3">
+                  <ProjectLinks project={p} />
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" className="section">
+        <div className="shell">
+          <SectionHead eyebrow="Experience" title="Where I work" />
+          <div className="flex flex-col gap-10">
+            {experience.map((e) => (
+              <article key={e.company} className="grid gap-5 md:grid-cols-[1fr_1.6fr] md:gap-12">
+                <div className="flex flex-col gap-1.5">
+                  <h3 className="text-xl font-semibold">{e.role}</h3>
+                  <p className="text-lg">{e.company}</p>
+                  <p className="text-muted font-mono text-xs">
+                    {e.period} · {e.place}
+                  </p>
+                </div>
+                <ul className="flex flex-col">
+                  {e.points.map((pt) => (
+                    <li
+                      key={pt}
+                      className="border-line text-muted border-t py-4 first:border-t-0 first:pt-0 md:text-lg"
+                    >
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="open-source" className="section">
+        <div className="shell">
+          <SectionHead eyebrow="Open source" title="Merged upstream" />
+          <ul className="border-line flex flex-col border-b">
+            {openSource.map((o) => (
+              <li key={o.href} className="border-line border-t">
+                <ExternalLink
+                  href={o.href}
+                  className="group grid gap-x-8 gap-y-1 py-5 md:grid-cols-[220px_1fr_auto] md:items-baseline"
+                >
+                  <span className="text-muted font-mono text-xs">{o.repo}</span>
+                  <span className="flex min-w-0 flex-col gap-1">
+                    <span className="text-lg font-medium">{o.title}</span>
+                    <span className="text-muted text-[15px]">{o.detail}</span>
+                  </span>
+                  <span className="text-accent-text font-mono text-xs">
+                    Merged{" "}
+                    <span
+                      aria-hidden="true"
+                      className="inline-block transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                      ↗
+                    </span>
+                  </span>
+                </ExternalLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" className="section">
+        <div className="shell">
+          <SectionHead eyebrow="About" title="Background and toolkit" />
+          <div className="grid gap-10 md:grid-cols-2 md:gap-12">
+            <div className="flex flex-col gap-4">
+              {site.about.map((p) => (
+                <p key={p} className="text-muted md:text-lg">
+                  {p}
+                </p>
+              ))}
+              <ul className="mt-2 flex flex-col gap-4">
+                {education.map((ed) => (
+                  <li key={ed.degree} className="border-line border-l-2 pl-4">
+                    <p className="font-medium">{ed.degree}</p>
+                    <p className="text-muted text-sm">
+                      {ed.school}. {ed.detail}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <dl className="flex flex-col gap-6">
+              {skills.map((g) => (
+                <div key={g.name} className="flex flex-col gap-2.5">
+                  <dt className="eyebrow">{g.name}</dt>
+                  <dd>
+                    <ul className="flex flex-wrap gap-1.5">
+                      {g.items.map((s) => (
+                        <li key={s} className="chip">
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" className="section">
+        <div className="shell">
+          <div className="card flex flex-col gap-6 p-6 md:gap-8 md:p-14">
+            <p className="eyebrow">Contact</p>
+            <h2 className="display max-w-[16ch] text-5xl md:text-7xl">
+              Have a role or a project <em>in mind?</em>
+            </h2>
+            <p className="text-muted max-w-xl md:text-lg">{site.about[2]}</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="text-link self-start text-lg font-medium [overflow-wrap:anywhere] md:text-2xl"
+            >
+              {site.email}
+            </a>
+            <div className="flex flex-wrap gap-3">
+              <a href={`mailto:${site.email}`} className="btn btn-primary">
+                Email me
+              </a>
+              <CopyEmail email={site.email} />
+              <ExternalLink href={site.linkedin} className="btn">
+                LinkedIn <span aria-hidden="true">↗</span>
+              </ExternalLink>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }

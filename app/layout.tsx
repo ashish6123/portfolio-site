@@ -1,32 +1,30 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
-import { Instrument_Sans, JetBrains_Mono, Newsreader } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { ExternalLink } from "@/components/ExternalLink";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { site } from "@/data/site";
 import "./globals.css";
 
-const newsreader = Newsreader({
-  variable: "--font-newsreader",
+const display = Instrument_Serif({
+  variable: "--font-display",
   subsets: ["latin"],
+  weight: "400",
   style: ["normal", "italic"],
-  display: "block",
+  display: "swap",
 });
 
-const instrument = Instrument_Sans({
-  variable: "--font-instrument",
+const body = Geist({
+  variable: "--font-body",
   subsets: ["latin"],
-  display: "block",
+  display: "swap",
 });
 
-const jetbrains = JetBrains_Mono({
-  variable: "--font-jetbrains",
+const code = Geist_Mono({
+  variable: "--font-code",
   subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "block",
-  // A real monospace fallback keeps label widths, so nothing rewraps when the font lands.
-  adjustFontFallback: false,
-  fallback: ["ui-monospace", "Menlo", "Consolas", "monospace"],
+  display: "swap",
 });
 
 const description = `${site.positioning} Final-year at IIT Patna, based in ${site.location}.`;
@@ -54,8 +52,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#15120f" },
-    { media: "(prefers-color-scheme: light)", color: "#d8cdbb" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0c0b" },
+    { media: "(prefers-color-scheme: light)", color: "#f5f3ee" },
   ],
 };
 
@@ -75,12 +73,19 @@ const personJsonLd = {
   sameAs: [site.github, site.linkedin],
 };
 
+const nav = [
+  { href: "/#work", label: "Work" },
+  { href: "/#experience", label: "Experience" },
+  { href: "/#open-source", label: "Open source" },
+  { href: "/#contact", label: "Contact" },
+];
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${newsreader.variable} ${instrument.variable} ${jetbrains.variable}`}
+      className={`${display.variable} ${body.variable} ${code.variable}`}
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
@@ -98,46 +103,52 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         >
           Skip to content
         </a>
-        <div className="shell">
-          <header className="flex items-center justify-between gap-4 py-3 min-[861px]:py-4">
-            <Link href="/" className="text-ink font-serif text-lg font-medium tracking-tight">
+        <header className="topbar sticky top-0 z-40">
+          <div className="shell flex h-16 items-center justify-between gap-4">
+            <Link href="/" className="font-serif text-2xl leading-none tracking-tight">
               {site.name}
             </Link>
+            <nav aria-label="Sections" className="text-muted hidden gap-7 text-sm md:flex">
+              {nav.map((n) => (
+                <Link key={n.href} href={n.href} className="hover:text-ink transition-colors">
+                  {n.label}
+                </Link>
+              ))}
+            </nav>
             <div className="flex items-center gap-2">
               <a
                 href={site.resume}
                 download={site.resumeFilename}
-                className="bg-accent text-accent-ink rounded-full px-3 py-1.5 font-mono text-xs transition-opacity hover:opacity-90"
+                className="btn btn-primary btn-sm"
               >
                 Resume <span aria-hidden="true">↓</span>
                 <span className="sr-only"> (PDF)</span>
               </a>
               <ThemeToggle />
             </div>
-          </header>
-          <main id="main" className="min-w-0">
-            {children}
-          </main>
-          <footer className="text-muted flex flex-wrap items-center justify-center gap-x-5 gap-y-1 py-5 font-mono text-xs max-[860px]:hidden">
-            <span>© 2026 {site.name}</span>
-            <a
-              className="hover:text-ink"
-              href={site.github}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GitHub
-            </a>
-            <a
-              className="hover:text-ink"
-              href={site.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              LinkedIn
-            </a>
-          </footer>
-        </div>
+          </div>
+        </header>
+        <main id="main" className="min-w-0">
+          {children}
+        </main>
+        <footer className="border-line border-t">
+          <div className="shell text-muted flex flex-wrap items-center justify-between gap-x-6 gap-y-2 py-8 font-mono text-xs">
+            <span>
+              © 2026 {site.name}. {site.location}.
+            </span>
+            <span className="flex gap-5">
+              <ExternalLink className="hover:text-ink" href={site.github}>
+                GitHub
+              </ExternalLink>
+              <ExternalLink className="hover:text-ink" href={site.linkedin}>
+                LinkedIn
+              </ExternalLink>
+              <a className="hover:text-ink" href={`mailto:${site.email}`}>
+                Email
+              </a>
+            </span>
+          </div>
+        </footer>
         <Analytics />
       </body>
     </html>

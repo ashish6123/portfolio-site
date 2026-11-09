@@ -2,11 +2,11 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex max-w-xl flex-col items-center gap-4 py-24 text-center">
-      <p className="eyebrow">Page missing</p>
-      <h1 className="font-serif text-4xl font-medium">This page was torn out.</h1>
-      <Link href="/" className="ink-link font-mono text-sm">
-        Back to the cover
+    <div className="shell flex min-h-[60vh] flex-col items-start justify-center gap-5 py-24">
+      <p className="eyebrow">404</p>
+      <h1 className="display text-5xl md:text-7xl">This page does not exist.</h1>
+      <Link href="/" className="btn btn-primary">
+        Back to home
       </Link>
     </div>
   );
