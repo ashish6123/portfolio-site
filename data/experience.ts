@@ -15,9 +15,9 @@ export const experience: Experience[] = [
     place: "Remote",
     period: "July 2026 to present",
     points: [
-      "Work across two products: AION, a Go-based enterprise LLM gateway, and Conduit, a desktop app for managing coding agent adapters.",
+      "Work across two products: AION, a Go-based enterprise LLM gateway, and Conduit, a desktop app for coding agents.",
       "Fix backend bugs in the AION Go codebase, and build and run benchmarking and acceptance-testing infrastructure for customer pilots.",
-      "Ship fixes and features on Conduit, including Windows compatibility and engine diagnostics.",
+      "Build Windows support, agent adapters, connectors and diagnostics on Conduit.",
       "Two-person team with the founder, so I own work end to end.",
     ],
   },

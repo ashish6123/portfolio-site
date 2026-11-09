@@ -12,6 +12,10 @@ export const site = {
     /\/$/,
     "",
   ),
+  headline:
+    "I build AI agents that can act on real systems, and the guardrails that stop them doing damage.",
+  role: "Forward Deployed Engineer Intern at Infivector. Final-year at IIT Patna.",
+  availability: "Open to FDE, AI and backend roles. Full-time from January 2027.",
   about: [
     "Final-year BS student in Computer Science and Data Analytics at IIT Patna (CPI 8.88, graduating July 2027).",
     "I build AI products and integrations, from workflow design through implementation, validation and handoff. My work includes LLM infrastructure, agentic systems, and full-stack products.",
@@ -36,4 +40,76 @@ export const education: Education[] = [
     school: "Indian Institute of Technology Patna",
     detail: "Provisional degree.",
   },
+];
+
+export type Highlight = {
+  value: string;
+  label: string;
+  detail: string;
+};
+
+export const highlights: Highlight[] = [
+  {
+    value: "Top 80",
+    label: "of 3,000+ developers",
+    detail: "National finalist, Google Cloud Agentic Premier League 2026.",
+  },
+  {
+    value: "FDE",
+    label: "Intern at Infivector",
+    detail: "Since July 2026, in a two-person team with the founder.",
+  },
+  {
+    value: "Kestra",
+    label: "Merged core fix",
+    detail: "Streams records instead of buffering whole files in memory.",
+  },
+  {
+    value: "8.88",
+    label: "CPI at IIT Patna",
+    detail: "BS, Computer Science and Data Analytics. Graduating July 2027.",
+  },
+];
+
+export type OpenSource = {
+  repo: string;
+  title: string;
+  detail: string;
+  href: string;
+};
+
+export const openSource: OpenSource[] = [
+  {
+    repo: "kestra-io/kestra",
+    title: "Stream records in FilterItems and DeduplicateItems",
+    detail: "Core fix. The tasks now stream records instead of buffering the whole file.",
+    href: "https://github.com/kestra-io/kestra/pull/21997",
+  },
+  {
+    repo: "kestra-io/kestra",
+    title: "Unit tests for a UI widget",
+    detail: "A small test contribution to the Kestra UI.",
+    href: "https://github.com/kestra-io/kestra/pull/21724",
+  },
+  {
+    repo: "kestra-io/blueprints",
+    title: "Go benchmark regression gate",
+    detail: "An example workflow that gates on benchstat results.",
+    href: "https://github.com/kestra-io/blueprints/pull/4831",
+  },
+];
+
+export type SkillGroup = {
+  name: string;
+  items: string[];
+};
+
+export const skills: SkillGroup[] = [
+  { name: "Languages", items: ["Python", "Go", "TypeScript", "SQL"] },
+  { name: "Backend and web", items: ["FastAPI", "Next.js", "PostgreSQL", "Supabase"] },
+  {
+    name: "AI",
+    items: ["Claude API", "Gemini API", "Google ADK", "Groq", "Hugging Face"],
+  },
+  { name: "Payments and cloud", items: ["Razorpay", "Cloud Run", "Render", "Vercel"] },
 ];

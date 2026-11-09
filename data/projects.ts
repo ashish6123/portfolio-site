@@ -26,6 +26,49 @@ export type Project = {
 // Keep copy factual. Do not add metrics, users or revenue that are not confirmed.
 export const projects: Project[] = [
   {
+    slug: "listingreel",
+    title: "ListingReel",
+    kind: "Full-stack SaaS, solo-built",
+    summary:
+      "Turns a real estate listing into a vertical video with an AI script and voiceover. Built alone, from landing page to checkout.",
+    problem: [
+      "Real estate agents need short vertical videos for every listing, and producing them by hand takes hours of scripting, recording and editing.",
+    ],
+    built: [
+      "The whole product, alone: landing page, auth, dashboard, video pipeline and billing.",
+      "A pipeline where an LLM writes the script, a voice model narrates it, and FFmpeg assembles the listing photos into a captioned vertical video.",
+      "Razorpay checkout, running in test mode for now.",
+    ],
+    architecture: [
+      { name: "Next.js frontend", detail: "Listing form, dashboard and video library." },
+      {
+        name: "FastAPI backend",
+        detail: "Authenticated API that queues and tracks each video job.",
+      },
+      { name: "Groq", detail: "Writes the voiceover script for the listing." },
+      { name: "ElevenLabs", detail: "Records the narration." },
+      { name: "FFmpeg", detail: "Animates photos, syncs audio, burns in captions." },
+      { name: "Supabase and Razorpay", detail: "Data, storage, and checkout in test mode." },
+    ],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "FastAPI",
+      "Supabase",
+      "Groq",
+      "ElevenLabs",
+      "FFmpeg",
+      "Razorpay",
+    ],
+    outcome: [
+      "The demo is live. Checkout runs in Razorpay test mode, so it does not take real payments yet.",
+    ],
+    links: [
+      { label: "Live demo", href: "https://listing-reel.vercel.app" },
+      { label: "Source on GitHub", href: "https://github.com/ashish6123/ListingReel" },
+    ],
+  },
+  {
     slug: "limbo",
     title: "Limbo",
     kind: "Autonomous payment reconciliation agent",
@@ -81,47 +124,6 @@ export const projects: Project[] = [
     links: [
       { label: "Live demo", href: "https://limbo-ochre.vercel.app/demo" },
       { label: "Source on GitHub", href: "https://github.com/ashish6123/limbo" },
-    ],
-  },
-  {
-    slug: "listingreel",
-    title: "ListingReel",
-    kind: "Full-stack SaaS, solo-built",
-    summary:
-      "Turns a real estate listing into a vertical video with an AI script and voiceover. Live, with real payments.",
-    problem: [
-      "Real estate agents need short vertical videos for every listing, and producing them by hand takes hours of scripting, recording and editing.",
-    ],
-    built: [
-      "The whole product, alone: landing page, auth, dashboard, video pipeline and billing.",
-      "A pipeline where an LLM writes the script, a voice model narrates it, and FFmpeg assembles the listing photos into a captioned vertical video.",
-      "Paid plans through Razorpay, live in production.",
-    ],
-    architecture: [
-      { name: "Next.js frontend", detail: "Listing form, dashboard and video library." },
-      {
-        name: "FastAPI backend",
-        detail: "Authenticated API that queues and tracks each video job.",
-      },
-      { name: "Groq", detail: "Writes the voiceover script for the listing." },
-      { name: "ElevenLabs", detail: "Records the narration." },
-      { name: "FFmpeg", detail: "Animates photos, syncs audio, burns in captions." },
-      { name: "Supabase and Razorpay", detail: "Data, storage, and paid plans." },
-    ],
-    stack: [
-      "Next.js",
-      "TypeScript",
-      "FastAPI",
-      "Supabase",
-      "Groq",
-      "ElevenLabs",
-      "FFmpeg",
-      "Razorpay",
-    ],
-    outcome: ["Live in production with real payments."],
-    links: [
-      { label: "Live app", href: "https://listing-reel.vercel.app/dashboard" },
-      { label: "Source on GitHub", href: "https://github.com/ashish6123/ListingReel" },
     ],
   },
   {
@@ -187,7 +189,7 @@ export const projects: Project[] = [
       "Cloud Run",
     ],
     outcome: [
-      "Top 80 of 3,000+ teams in the Google Cloud Agentic Premier League.",
+      "National finalist in the Google Cloud Agentic Premier League 2026: top 80 of 3,000+ developers.",
       "The live demo is offline because the hackathon cloud credits expired.",
     ],
     links: [{ label: "Source on GitHub", href: "https://github.com/ashish6123/Stadium-Sentinel" }],
